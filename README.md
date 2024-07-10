@@ -8,7 +8,7 @@ This repository contains;
 
 ## What does it do
 
-This repository contains all necessary code to deploy and run Mable example-app test project
+Deploys a terraform stack containing an RDS instance with IAM authentication enabled.
 
 ## Details
 
