@@ -54,7 +54,7 @@ variable "storage_size_gb" {
       var.storage_size_gb < 4000,
       var.storage_size_gb >= 400 # Required for striping and custom IOPS
     ])
-    error_message = "Effective use of gp3 storage type requires under 4000GB"
+    error_message = "Effective use of gp3 storage type requires under 4000GB."
   }
 }
 
@@ -63,7 +63,7 @@ variable "iops" {
   type        = number
   validation {
     condition     = var.iops < 20000
-    error_message = "IOPS requested is too high for effective use of gp3"
+    error_message = "IOPS requested is too high for effective use of gp3."
   }
 }
 
@@ -86,16 +86,16 @@ variable "db_user_name" {
 }
 
 variable "authorized_role_names" {
-  description = "Requires roles already exists (as its an IAM principal), May create race conditions in DR, recommendation is to use output role from RDS workspace deployment as RDS workspace needs to run first, it removes race condition"
+  description = "Requires roles already exists (as its an IAM principal), May create race conditions in DR"
   type        = list(string)
   validation {
     condition     = alltrue([for role in var.authorized_role_names : can(regex("[A-Za-z0-9-_]+$", role))])
-    error_message = "Invalid IAM role name reference"
+    error_message = "Invalid IAM role name reference."
   }
 }
 
 variable "service_principal" {
-  description = "The correct service principal of the service which will assume the role"
+  description = "The correct service principal of the service which will assume the role."
   type        = string
   default     = "pods.eks.amazonaws.com"
 }
