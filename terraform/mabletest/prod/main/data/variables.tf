@@ -14,7 +14,7 @@ locals {
   mt_environment     = reverse(split("/", abspath(path.root)))[2]
   mt_stack           = reverse(split("/", abspath(path.root)))[1]
   mt_service         = reverse(split("/", abspath(path.root)))[0]
-  vpc                = data.terraform_remote_state.vpc-k8s.outputs.vpc
+  vpc_data           = data.terraform_remote_state.vpc_data.outputs.vpc
   tags = {
     mt_namespace   = local.mt_namespace
     mt_environment = local.mt_environment

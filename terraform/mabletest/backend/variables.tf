@@ -1,8 +1,10 @@
 variable "aws_profile" {
+  type    = string
   default = "mabletest"
 }
 
 variable "aws_region" {
+  type    = string
   default = "ap-southeast-2"
 }
 
