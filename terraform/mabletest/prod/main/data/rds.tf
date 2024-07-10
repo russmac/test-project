@@ -9,8 +9,8 @@ module "rds" {
   vpc_k8s        = data.terraform_remote_state.vpc_k8s.outputs.vpc
 
   # IAM configuration
-  user_name           = "app"
-  app_role_names      = ["example-app"]
+  db_user_name             = "app"
+  authorized_role_names = ["example-app"]
 
   # Prod configuration
   iops                = 13000

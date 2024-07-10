@@ -72,24 +72,24 @@ variable "instance_type" {
   type        = string
 }
 
-variable "user_name" {
+variable "db_user_name" {
   description = "The limited authorization user name to connect to the Postgresql database"
   type        = string
   validation {
     condition = alltrue([
-      length(var.user_name) > 2,   # Minimum meaningful length
-      length(var.user_name) <= 16, # Not too long!
-      can(regex("^[a-zA-Z_\\$][a-zA-Z0-9_\\$]*$", var.user_name))
+      length(var.db_user_name) > 2,   # Minimum meaningful length
+      length(var.db_user_name) <= 16, # Not too long!
+      can(regex("^[a-zA-Z_\\$][a-zA-Z0-9_\\$]*$", var.db_user_name))
     ])
     error_message = "The Postgresql username must be between 1 and 32 characters long and can contain letters, numbers, underscores, and dollar signs. It should not start with a digit."
   }
 }
 
-variable "app_role_names" {
-  description = "Requires role already exists (as its an IAM principal), May create race conditions in DR, recommendation is to use output role from RDS workspace deployment as RDS workspace needs to run first, it removes race condition"
+variable "authorized_role_names" {
+  description = "Requires roles already exists (as its an IAM principal), May create race conditions in DR, recommendation is to use output role from RDS workspace deployment as RDS workspace needs to run first, it removes race condition"
   type        = list(string)
   validation {
-    condition     = alltrue([for role in var.app_role_names : can(regex("[A-Za-z0-9-_]+$", role))])
+    condition     = alltrue([for role in var.authorized_role_names : can(regex("[A-Za-z0-9-_]+$", role))])
     error_message = "Invalid IAM role name reference"
   }
 }

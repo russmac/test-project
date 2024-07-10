@@ -1,5 +1,5 @@
 resource "aws_iam_role" "rds_user_connect_role" {
-  name = "${var.mt_environment}-${var.mt_stack}-${var.mt_service}-${var.user_name}"
+  name = "${var.mt_environment}-${var.mt_stack}-${var.mt_service}-${var.db_user_name}"
   assume_role_policy = jsonencode({
     "Version" : "2012-10-17",
     "Statement" : [
@@ -18,7 +18,7 @@ resource "aws_iam_role" "rds_user_connect_role" {
 }
 
 resource "aws_iam_policy" "rds_user_connect_policy" {
-  name        = "rds-connect-${var.user_name}"
+  name        = "rds-connect-${var.db_user_name}"
   description = "Policy to allow connecting to RDS with IAM authentication"
 
   policy = jsonencode({
@@ -27,7 +27,7 @@ resource "aws_iam_policy" "rds_user_connect_policy" {
       {
         Effect   = "Allow",
         Action   = "rds-db:connect",
-        Resource = "arn:aws:rds-db:${var.aws_region}:${data.aws_caller_identity.current.account_id}:dbuser:${aws_db_instance.rds.resource_id}/${var.user_name}"
+        Resource = "arn:aws:rds-db:${var.aws_region}:${data.aws_caller_identity.current.account_id}:dbuser:${aws_db_instance.rds.resource_id}/${var.db_user_name}"
       }
     ]
   })
@@ -41,7 +41,7 @@ resource "aws_iam_role_policy_attachment" "default_rds_connect_policy" {
 data "aws_caller_identity" "current" {}
 
 resource "aws_iam_role_policy_attachment" "role_rds_connect_policy" {
-  for_each   = toset(var.app_role_names)
+  for_each   = toset(var.authorized_role_names)
   role       = each.key
   policy_arn = aws_iam_policy.rds_user_connect_policy.arn
 }

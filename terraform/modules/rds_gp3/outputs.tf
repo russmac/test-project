@@ -10,6 +10,10 @@ output "rds_user_connect_policy" {
   value = aws_iam_policy.rds_user_connect_policy
 }
 
-output "rds_user_name" {
-  value = var.user_name
+output "db_user_name" {
+  value = var.db_user_name
+}
+
+output "authorized_role_names" {
+  value = aws_iam_role_policy_attachment.role_rds_connect_policy[*]
 }
