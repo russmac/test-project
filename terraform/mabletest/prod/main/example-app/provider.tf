@@ -7,7 +7,7 @@ terraform {
     dynamodb_table = "mabletest-terraform-st-lock"
     encrypt        = true
   }
-} x
+}
 
 provider "aws" {
   profile = var.aws_profile
