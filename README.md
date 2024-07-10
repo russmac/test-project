@@ -45,3 +45,7 @@ All vars and locals prefixed with mt_ indicate organisational business logic.
 
 ## Further context on design
 An RDS VPC endpoint was not created as the scope indicated the two VPC should be considered part of the same network (assuming peered)
+
+## Further documentation
+Documentation on configuring Boto3 to utilise IAM authentication.
+https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.IAMDBAuth.Connecting.Python.html
