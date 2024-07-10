@@ -2,7 +2,7 @@ output "rds_rds_instance_id" {
   value = module.rds.rds_instance.id
 }
 
-output "rds_rds_user_name" {
+output "rds_db_user_name" {
   value = module.rds.db_user_name
 }
 
